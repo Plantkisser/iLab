@@ -45,15 +45,11 @@ namespace geom
 	template <typename T> std:: vector<Point<T>> GetParalIntersection(Point <T> p1, Point <T> p2, Point <T> p3, Point <T> p4)
 	{	
 		static bool isFirst = false;
-		//std:: cout << p1.x << " xy " << p1.y << '\n' << p2.x << " xy " << p2.y << '\n' << p3.x << " xy " << p3.y << '\n' << p4.x << " xy " << p4.y << '\n' << '\n';
-
-
 
 		std:: vector<Point<T>> ret;		
 		Point <T> vec1, vec2, vec3, vec4;
 
 		vec1 = p2 - p3;
-
 		vec2 = p1 - p3;
 
 		if (ScalMul(vec1, vec2) < 0) ret.push_back(p3);
@@ -79,8 +75,6 @@ namespace geom
 
 	template <typename T> bool CheckIntersection(Point <T> p1, Point <T> p2, Point <T> p3, Point <T> p4)
 	{
-		//std:: cout << "**\n";
-		//std:: cout << p1.x << " xy " << p1.y << '\n' << p2.x << " xy " << p2.y << '\n' << p3.x << " xy " << p3.y << '\n' << p4.x << " xy " << p4.y << '\n' << '\n';
 		static bool isFirst = false;
 		static bool isPrevZero = false;
 
@@ -101,8 +95,7 @@ namespace geom
 			isFirst = false;
 			isPrevZero = false;
 
-			//std:: cout << "1* " << res1 * res2 << '\n';
-			return false; // По одну сторону от отрезка
+			\return false; // По одну сторону от отрезка
 		}
 		else if (isFirst == false)
 		{
@@ -116,7 +109,6 @@ namespace geom
 			isPrevZero = false;
 
 
-			//std:: cout << "T\n";
 			return true; // для обоих отрезков точки по разные стороны => они пересекаются
 		}
 		else // случай когда все 4 точки лежат на одной прямой
@@ -124,22 +116,15 @@ namespace geom
 			if (!isPrevZero)
 			{
 				isFirst = false;
-				//std:: cout << "T\n";
-
-
 				return true;
 			}
 			if (GetParalIntersection<T>(p1, p2, p3, p4).size() == 2) // если вернет 2 значит отрезки накладываются друг на друга
 			{
 				isFirst = false;
 				isPrevZero = false;
-
-
-				//std:: cout << "T\n";
 				return true;
 			}
 		}
-		//std:: cout << "2*\n";
 		isFirst = false;
 		isPrevZero = false;
 
@@ -152,7 +137,6 @@ namespace geom
 	template <typename T> std:: vector<Point<T>> GetIntersection(Point <T> p1, Point <T> p2, Point <T> p3, Point <T> p4) //Пересечение может дать 2 точки они будут хранится в векторе
 	{
 		std:: vector<Point<T>> ret;
-		//std:: cout << p1.x << " xy " << p1.y << '\n' << p2.x << " xy " << p2.y << '\n' << p3.x << " xy " << p3.y << '\n' << p4.x << " xy " << p4.y << '\n';
 
 		T A1, B1, C1; // параметры прямых для первых двух точек и вторых соответственно
 		T A2, B2, C2;
@@ -182,7 +166,6 @@ namespace geom
 			retpt.y = (A1*C2 - A2*C1)/(A2*B1 - A1*B2);
 			retpt.x = (-C2 - B2*retpt.y)/A2;	
 		}
-		//std:: cout << "GI " << retpt.x << ' ' << retpt.y << std:: endl;
 		ret.push_back(retpt);
 
 		return ret;

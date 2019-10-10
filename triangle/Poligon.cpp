@@ -51,10 +51,7 @@ template <typename T> T Poligon<T>::  Square()
 	T sq = 0;
 
 	for (int i = 0; i < n; i ++)
-	{
-		//std:: cout << arrpt[i].x << " " << arrpt[i].y << '\n';
 		sq += (arrpt[(i + 1)%n].x - arrpt[i].x) * (arrpt[(i + 1)%n].y + arrpt[i].y);
-	}
 
 
 	sq = abs(sq);
@@ -108,14 +105,11 @@ template <typename T> void Poligon<T>:: SortP()
 
 template <typename T> void Poligon<T>:: AddPt(geom:: Point<T> pt)
 {
-	//std:: cout << pt.x << ' ' << pt.y << std:: endl;
 	if (find_pt(pt))
 		return;
-	//std:: cout <<"**";
 	arrpt.push_back(pt);
 	n++;
 	SortP();
-	//std:: cout << centre.x << ' ' << centre.y << '\n';
 }
 
 template<typename T> Poligon<T>:: Poligon():
@@ -140,7 +134,6 @@ n(0)
 		if (P2.IsPointInsidePol(P1.arrpt[i]))
 		{
 			AddPt(P1.arrpt[i]);
-			//std:: cout << P1.arrpt[i].x << ' ' << P1.arrpt[i].y << std:: endl;
 		}
 		for(int j = 0; j < P2.n; j++)
 		{
@@ -154,7 +147,6 @@ n(0)
 
 			for(auto it : v)
 			{
-				//std:: cout << it.x << ' ' << it.y << std:: endl;
 				AddPt(it);
 			}
 		}
@@ -162,7 +154,6 @@ n(0)
 	for (int j = 0; j < P2.n; j++)
 		if (P1.IsPointInsidePol(P2.arrpt[j]))
 		{
-			//std:: cout << P2.arrpt[j].x << ' ' << P2.arrpt[j].y << std:: endl;
 			AddPt(P2.arrpt[j]);
 		}
 }
@@ -182,7 +173,6 @@ template<typename T> bool Poligon<T>:: IsPointInsidePol(geom:: Point<T> pt)
 			return false;
 		prev = cur;
 	}
-	//std:: cout << "IPIP " << pt.x << ' ' << pt.y << '\n';
 	return true;
 }
 
@@ -192,11 +182,9 @@ template<typename T> bool Poligon<T>:: find_pt(geom:: Point<T> pt)
 	{
 		if (pt == it)
 		{
-			//std:: cout << "**\n";
 			return true;
 		}
 	}
-	//std:: cout << "*\n";
 	return false;
 }
 

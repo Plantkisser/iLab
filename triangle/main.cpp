@@ -15,7 +15,7 @@ int main()
 	tr1.AddPt(a1);
 	tr1.AddPt(b1);
 	tr1.AddPt(c1);
-	//std:: cout << (a1 - a2).y << std:: endl;
+
 
 	tr2.AddPt(a2);
 	tr2.AddPt(b2);
@@ -23,7 +23,7 @@ int main()
 
 	Poligon<float> inpol(tr1, tr2);
 
-	std:: cout << inpol.Square() << std:: endl; //<< ' ' << inpol.n << std:: endl;
+	std:: cout << inpol.Square() << std:: endl;
 
 
 	return 0;
