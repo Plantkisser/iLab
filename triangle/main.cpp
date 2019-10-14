@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Poligon.cpp"
+#include "Poligon.h"
 
 
 
