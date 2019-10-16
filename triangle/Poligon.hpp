@@ -27,10 +27,12 @@ template <typename T> T Poligon<T>::  Square()
 	T sq = 0;
 
 	for (int i = 0; i < n; i ++)
+	{
 		sq += (arrpt[(i + 1)%n].x - arrpt[i].x) * (arrpt[(i + 1)%n].y + arrpt[i].y);
+	}
 
 
-	sq = abs(sq);
+	sq = std:: abs(sq);
 	sq /= 2;
 	return sq;
 }
@@ -96,9 +98,7 @@ n(0)
 }
 
 template<typename T> Poligon<T>:: ~Poligon()
-{
-	arrpt.clear();
-}
+{}
 
 template<typename T> Poligon<T>:: Poligon(Poligon P1, Poligon P2):
 n(0)
@@ -110,6 +110,7 @@ n(0)
 		if (P2.IsPointInsidePol(P1.arrpt[i]))
 		{
 			AddPt(P1.arrpt[i]);
+			//std:: cout << P1.arrpt[i].x << ' ' << P1.arrpt[i].y << std:: endl;
 		}
 		for(int j = 0; j < P2.n; j++)
 		{

@@ -1,6 +1,6 @@
+#pragma once
 #include <vector>
 #include "Geometry.h"
-
 
 
 
@@ -14,41 +14,28 @@ namespace geom
 
 template <typename T> class Poligon
 {
-public:
+private:
+	void Setcentre();
 	std:: vector<geom:: Point<T>> arrpt;
 	geom:: Point<T> centre;
+	bool find_pt(geom:: Point<T> pt);
 	int n;
-	void Setcentre();
 
 
+public:
 	void AddPt(geom:: Point<T> pt);
-
 
 	T Square();
 
-
-
 	void SortP();
-
-
-
 
 	bool IsPointInsidePol(geom:: Point<T> pt);
 
-
-
 	Poligon();
-
 
 	Poligon(Poligon P1, Poligon P2);
 
-
 	~Poligon();
-
-
-
-
-	bool find_pt(geom:: Point<T> pt);
 };
 
 #include "Poligon.hpp"
