@@ -35,11 +35,9 @@ public:
 
 	Poligon(Poligon P1, Poligon P2);
 
-	~Poligon();
 };
 
 #include "Poligon.hpp"
-
 
 
 

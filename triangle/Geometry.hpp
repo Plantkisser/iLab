@@ -39,9 +39,9 @@ namespace geom
 		return v1.x * v2.x + v1.y * v2.y;
 	}
 
-	template <typename T> std:: vector<Point<T>> GetParalIntersection(Point <T> p1, Point <T> p2, Point <T> p3, Point <T> p4)
-	{	
-		static bool isFirst = false;
+	template <typename T> std:: vector<Point<T>> GetParalIntersection(Point <T> p1, Point <T> p2, Point <T> p3, Point <T> p4, bool isFirst)
+	{
+		//std:: cout << p1.x << p1.y << p2.x << p2.y << p3.x << p3.y << p4.x << p4.y << std:: endl;
 
 		std:: vector<Point<T>> ret;		
 		Point <T> vec1, vec2, vec3, vec4;
@@ -49,31 +49,32 @@ namespace geom
 		vec1 = p2 - p3;
 		vec2 = p1 - p3;
 
-		if (ScalMul(vec1, vec2) < 0) ret.push_back(p3);
-		else ret.push_back(p4);
+		vec3 = p1 - p4;
+		vec4 = p2 - p4;
+
+		if (ScalMul(vec1, vec2) <= 0) ret.push_back(p3);
+
+		if (ScalMul(vec3, vec4) <= 0) ret.push_back(p4);
+
 
 		if (isFirst == true)
 		{
-			isFirst = false;
 			return ret;
 		}
 
-		isFirst = true;
-
-		if (GetParalIntersection<T>(p3, p4, p1, p2).size() != 0)
+		//std:: cout << "*()*" << std:: endl;
+		if (GetParalIntersection<T>(p3, p4, p1, p2, true).size() != 0)
 		{
-			isFirst = true;
-			ret.push_back(GetParalIntersection<T>(p3, p4, p1, p2).front());
+			//std:: cout << "*()*" << std:: endl;
+			ret.push_back(GetParalIntersection<T>(p3, p4, p1, p2, true).front());
 		}
-
+		//std:: cout << "*(x)*" << std:: endl;
 		return ret;
 	}
 
 
-	template <typename T> bool CheckIntersection(Point <T> p1, Point <T> p2, Point <T> p3, Point <T> p4)
+	template <typename T> bool CheckIntersection(Point <T> p1, Point <T> p2, Point <T> p3, Point <T> p4, bool isFirst, bool isPrevZero)
 	{
-		static bool isFirst = false;
-		static bool isPrevZero = false;
 
 
 		Point <T> vec1, vec2, vec3, vec4;
@@ -89,23 +90,15 @@ namespace geom
 
 		if (res1 * res2 < 0)
 		{
-			isFirst = false;
-			isPrevZero = false;
-
 			return false; // По одну сторону от отрезка
 		}
 		else if (isFirst == false)
 		{
-			isFirst = true;
 			if (res1 * res2 == 0) isPrevZero = true;
-			return CheckIntersection<T>(p3, p4, p1, p2); // для первого отрезка точки находятся по разные стороны
+			return CheckIntersection<T>(p3, p4, p1, p2, true, isPrevZero); // для первого отрезка точки находятся по разные стороны
 		}
 		else if (res1 * res2 != 0)
 		{
-			isFirst = false;
-			isPrevZero = false;
-
-
 			return true; // для обоих отрезков точки по разные стороны => они пересекаются
 		}
 		else // случай когда все 4 точки лежат на одной прямой
@@ -115,13 +108,13 @@ namespace geom
 				isFirst = false;
 				return true;
 			}
-			if (GetParalIntersection<T>(p1, p2, p3, p4).size() == 2) // если вернет 2 значит отрезки накладываются друг на друга
+			//std:: cout << "*\n"; 
+			if (GetParalIntersection<T>(p1, p2, p3, p4, true).size() == 2) // если вернет 2 значит отрезки накладываются друг на друга
 			{
-				isFirst = false;
-				isPrevZero = false;
 				return true;
 			}
 		}
+		//std:: cout << "***\n";
 		isFirst = false;
 		isPrevZero = false;
 
@@ -149,6 +142,7 @@ namespace geom
 
 		if (A2*B1 - A1*B2 == 0 && A1*C2 - A2*C1 == 0)
 		{
+			//std:: cout << "*";
 			return GetParalIntersection<T>(p1, p2, p3, p4);
 		}
 
@@ -164,6 +158,8 @@ namespace geom
 			retpt.x = (-C2 - B2*retpt.y)/A2;	
 		}
 		ret.push_back(retpt);
+
+		//std:: cout << "**";
 
 		return ret;
 	}

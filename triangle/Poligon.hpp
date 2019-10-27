@@ -24,6 +24,7 @@ namespace geom
 
 template <typename T> T Poligon<T>::  Square()
 {
+	//std:: cout << n << std:: endl;
 	T sq = 0;
 
 	for (int i = 0; i < n; i ++)
@@ -97,8 +98,7 @@ n(0)
 	centre.y = 0;
 }
 
-template<typename T> Poligon<T>:: ~Poligon()
-{}
+
 
 template<typename T> Poligon<T>:: Poligon(Poligon P1, Poligon P2):
 n(0)
@@ -107,6 +107,7 @@ n(0)
 	centre.y = 0;
 	for(int i = 0; i < P1.n; i++)
 	{
+		//std:: cout << "start" << std:: endl; 
 		if (P2.IsPointInsidePol(P1.arrpt[i]))
 		{
 			AddPt(P1.arrpt[i]);
@@ -117,13 +118,17 @@ n(0)
 
 			std:: vector<geom:: Point<T>> v;
 
+
+			//std:: cout << "begin" <<std:: endl;
 			if(!CheckIntersection(P1.arrpt[i], P1.arrpt[(i + 1) % P1.n], P2.arrpt[j], P2.arrpt[(j + 1) % P2.n]))
 				continue;
-
+			//std:: cout << "end\n" << std:: endl;
 			v = GetIntersection(P1.arrpt[i], P1.arrpt[(i + 1) % P1.n], P2.arrpt[j], P2.arrpt[(j + 1) % P2.n]);
 
 			for(auto it : v)
 			{
+				//std:: cout << P1.arrpt[i].x << ' ' << P1.arrpt[i].y << ' ' << P1.arrpt[(i + 1) % P1.n].x << ' ' << P1.arrpt[(i + 1) % P1.n].y << " x " << P2.arrpt[j].x << ' ' << P2.arrpt[j].y << ' ' << P2.arrpt[(j + 1) % P2.n].x << ' ' << P2.arrpt[(j + 1) % P2.n].y << std:: endl;
+				//std:: cout << it.x << ' ' << it.y << std:: endl;
 				AddPt(it);
 			}
 		}
