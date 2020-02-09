@@ -1,0 +1,9 @@
+Sum:
+Wrong matrix for sum
+
+Mul:
+13 16 29 
+47 33 61 
+
+Det first: 19
+Det second: Error with counting determinant, not a square matrix 0
